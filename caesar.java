@@ -24,11 +24,18 @@ public class caesar {
         for (int i = 0; i < n; i++){
             char character = str.charAt(i);
             int icharacter = (int) character;
-            if (operation == 'e'){
-                icharacter += offset;
-            }
-            else if (operation == 'd'){
-                icharacter -= offset;
+            if (icharacter != 32) {
+                if (operation == 'e') {
+                    icharacter += offset;
+                    if ((icharacter - offset <= 90 && icharacter > 90) || (icharacter - offset <= 122 && icharacter > 122)){
+                        icharacter -= 26;
+                    }
+                } else if (operation == 'd') {
+                    icharacter -= offset;
+                    if ((icharacter + offset >= 65 && icharacter < 65) || (icharacter + offset >= 97 && icharacter < 97)){
+                        icharacter += 26;
+                    }
+                }
             }
             character = (char) icharacter;
             newStr += character;
