@@ -1,5 +1,3 @@
-package com.example.caesar;
-
 import java.util.Scanner;
 
 public class caesar {
