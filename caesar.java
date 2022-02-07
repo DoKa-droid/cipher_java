@@ -2,7 +2,6 @@ import java.util.Scanner;
 
 public class caesar {
     public static void main(String[] args) {
-        int n = args.length;
         char operation = args[0].charAt(1);
         String str = args[1];
         int offset = Integer.parseInt(args[3]);
