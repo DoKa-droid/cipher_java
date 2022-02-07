@@ -5,15 +5,12 @@ public class caesar {
         int n = args.length;
         char operation = args[0].charAt(1);
         String str = args[1];
-        for (int i=2; i<n-3; i++) {
-            str = String.join(" ", str, args[i]);
-        }
-        int offset = Integer.parseInt(args[n-1]);
+        int offset = Integer.parseInt(args[3]);
 
-        Scanner in = new Scanner(System.in);
         String result = cipher(operation, str, offset);
         System.out.println(result);
 
+        Scanner in = new Scanner(System.in);
         System.out.println("Press Any Key To Continue...");
         in.nextLine();
     }
