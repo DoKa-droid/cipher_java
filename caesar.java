@@ -2,16 +2,19 @@ import java.util.Scanner;
 
 public class caesar {
     public static void main(String[] args) {
+        int n = args.length;
+        char operation = args[0].charAt(1);
+        String str = args[1];
+        System.out.println(args[1]);
+        for (int i=2; i<n-3;i++) {
+            str = String.join(" ", str, args[i]);
+        }
+        int offset = Integer.parseInt(args[n-1]);
+
         Scanner in = new Scanner(System.in);
-        String inputStr = in.nextLine();
-        String[] sentence = inputStr.split("'");
-        String str = sentence[1];
-        String words = sentence[0].concat(sentence[2]);
-        String[] word = words.split(" ");
-        char operation = word[0].charAt(1);
-        int offset = Integer.parseInt(word[3]);
         String result = cipher(operation, str, offset);
         System.out.println(result);
+
         System.out.println("Press Any Key To Continue...");
         in.nextLine();
     }
