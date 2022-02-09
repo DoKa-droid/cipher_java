@@ -1,10 +1,10 @@
 public class caesar {
     public static void main(String[] args) {
-        char operation = 'a';
+        char operation = 'a'; \\аргументы по умолчанию
         String str = "";
         int offset = -1;
         if (args.length == 4) {
-            if (args[0].charAt(1) == 'e' || args[0].charAt(1) == 'd') {
+            if (args[0].charAt(1) == 'e' || args[0].charAt(1) == 'd') { \\ определяет, где находятся аргументы
                 operation = args[0].charAt(1);
                 str = args[1];
                 offset = Integer.parseInt(args[3]);
@@ -14,8 +14,16 @@ public class caesar {
                 str = args[3];
                 offset = Integer.parseInt(args[1]);
             }
+            for (int i = 0; i<str.length(); i++){ \\проверка кодировки
+                if (str.charAt(i) > 127){
+                    System.out.println("Wrong sentence encoding" +
+                            "\nExample of input: -e/-d \"sentence to encrypt/decrypt\" -o offset_number" +
+                            "\n-e - encrypt\n-d - decrypt\n-o - offset");
+                    System.exit(0);
+                }
+            }
 
-            if (operation != 'a' && str != "" && offset > 0) {
+            if ((operation == 'e' || operation == 'd') && str != "" && offset > 0) {
                 String result = cipher(operation, str, offset);
                 System.out.println(result);
             }
@@ -42,7 +50,7 @@ public class caesar {
         int n = str.length();
         for (int i = 0; i < n; i++){
             char character = str.charAt(i);
-            int icharacter = (int) character;
+            int icharacter = character;
             if (icharacter != 32) {
                 if (operation == 'e') {
                     icharacter += offset;
