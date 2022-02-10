@@ -5,32 +5,32 @@ public class Caesar {
         char operation;
         String str, result = "";
         int offset;
-        boolean goodArgs = CheckArgs(args);
+        boolean goodArgs = checkArgs(args);
         if (goodArgs == true) {
             if (args[0] == "-e" || args[0] == "-d") {
                 operation = args[0].charAt(1);
                 str = args[1];
                 offset = Integer.parseInt(args[3]);
                 if (operation == 'e') {
-                    result = Encrypt(str, offset);
+                    result = encrypt(str, offset);
                 } else {
-                    result = Decrypt(str, offset);
+                    result = decrypt(str, offset);
                 }
             } else if (args[2] == "-e" || args[2] == "-d") {
                 operation = args[2].charAt(1);
                 str = args[3];
                 offset = Integer.parseInt(args[1]);
                 if (operation == 'e') {
-                    result = Encrypt(offset, str);
+                    result = encrypt(offset, str);
                 } else {
-                    result = Decrypt(offset, str);
+                    result = decrypt(offset, str);
                 }
             }
             System.out.println(result);
         }
     }
 
-    public static boolean CheckArgs(String[] args) {
+    public static boolean checkArgs(String[] args) {
         if (args.length != 4) {
             System.out.println("Wrong number of arguments!");
             return false;
@@ -75,7 +75,7 @@ public class Caesar {
         return true;
     }
 
-    public static String Encrypt(String str, int offset) {
+    public static String encrypt(String str, int offset) {
         String newStr = "";
         int n = str.length();
         for (int i = 0; i < n; i++) {
@@ -96,11 +96,11 @@ public class Caesar {
         return newStr;
     }
 
-    public static String Encrypt(int offset, String str) {
-        return Encrypt(str, offset);
+    public static String encrypt(int offset, String str) {
+        return encrypt(str, offset);
     }
 
-    public static String Decrypt(String str, int offset) {
+    public static String decrypt(String str, int offset) {
         String newStr = "";
         int n = str.length();
         for (int i = 0; i < n; i++) {
@@ -121,7 +121,7 @@ public class Caesar {
         return newStr;
     }
 
-    public static String Decrypt(int offset, String str) {
-        return Decrypt(str, offset);
+    public static String decrypt(int offset, String str) {
+        return decrypt(str, offset);
     }
 }
