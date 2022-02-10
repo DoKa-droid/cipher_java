@@ -3,81 +3,91 @@ package com.example.caesar;
 public class Caesar {
     public static void main(String[] args) {
         char operation;
-        String str, result;
+        String str, result = "";
         int offset;
-        if (args.length == 4) {
-            if (args[0].charAt(1) == 'e' || args[0].charAt(1) == 'd') {
+        boolean goodArgs = checkArgs(args);
+        if (goodArgs == true) {
+            if (args[0] == "-e" || args[0] == "-d") {
                 operation = args[0].charAt(1);
                 str = args[1];
                 offset = Integer.parseInt(args[3]);
                 if (operation == 'e') {
-                    result = Encrypt(str, offset);
+                    result = encrypt(str, offset);
                 } else {
-                    result = Decrypt(str, offset);
+                    result = decrypt(str, offset);
                 }
-                System.out.println(result);
-            } else if (args[2].charAt(1) == 'e' || args[2].charAt(1) == 'd') {
+            } else if (args[2] == "-e" || args[2] == "-d") {
                 operation = args[2].charAt(1);
                 str = args[3];
                 offset = Integer.parseInt(args[1]);
                 if (operation == 'e') {
-                    result = Encrypt(str, offset);
+                    result = encrypt(offset, str);
                 } else {
-                    result = Decrypt(str, offset);
+                    result = decrypt(offset, str);
                 }
-                System.out.println(result);
-            } else {
-                System.out.println("Wrong arguments" +
-                        "\nExample of input: -e/-d \"sentence to encrypt/decrypt\" -o offset_number" +
-                        "\n-e - encrypt\n-d - decrypt\n-o - offset");
             }
+            System.out.println(result);
         }
     }
-     /*       for (int i = 0; i<str.length(); i++){
-                if (str.charAt(i) > 127){
-                    System.out.println("Wrong sentence encoding" +
-                            "\nExample of input: -e/-d \"sentence to encrypt/decrypt\" -o offset_number" +
-                            "\n-e - encrypt\n-d - decrypt\n-o - offset");
-                    break;
+
+    public static boolean checkArgs(String[] args) {
+        if (args.length != 4) {
+            System.out.println("Wrong number of arguments!");
+            return false;
+        }
+        if (args[0].length() != 2 || args[2].length() != 2) {
+            System.out.println("Wrong order of arguments!");
+            return false;
+        }
+        if (((args[0] != "-e" && args[0] != "-d") || args[2] != "-o") &&
+                ((args[2] != "-e" && args[2] != "-d") || args[1] != "-o")) {
+            System.out.println("Wrong flags! Please enter correct flags!");
+            return false;
+        }
+        if (args[2] == "-o") {
+            if (Integer.parseInt(args[3]) < 1) {
+                System.out.println("Not positive offset! Please enter number above 0!");
+                return false;
+            }
+        } else if (args[0] == "-o") {
+            if (Integer.parseInt(args[1]) < 1) {
+                System.out.println("Not positive offset! Please enter number above 0!");
+                return false;
+            }
+        }
+        if (args[2] == "-o") {
+            for (int i = 0; i < args[1].length(); i++) {
+                if (args[1].charAt(i) > 126) {
+                    System.out.println("Wrong encoding! Please use ASCII !");
+                    return false;
                 }
+                ;
             }
+        } else if (args[0] == "-o") {
+            for (int i = 0; i < args[3].length(); i++) {
+                if (args[3].charAt(i) > 126) {
+                    System.out.println("Wrong encoding! Please use ASCII !");
+                    return false;
+                }
+                ;
+            }
+        }
+        return true;
+    }
 
-            if ((operation == 'e' || operation == 'd') && str != "" && offset > 0) {
-                String result = cipher(operation, str, offset);
-                System.out.println(result);
-            }
-            else {
-                System.out.println("Wrong arguments" +
-                        "\nExample of input: -e/-d \"sentence to encrypt/decrypt\" -o offset_number" +
-                        "\n-e - encrypt\n-d - decrypt\n-o - offset");
-            }
-        }
-        else if (args.length < 4){
-            System.out.println("Too few arguments" +
-                    "\nExample of input: -e/-d \"sentence to encrypt/decrypt\" -o offset_number" +
-                    "\n-e - encrypt\n-d - decrypt\n-o - offset");
-        }
-        else {
-            System.out.println("Too many arguments" +
-                    "\nExample of input: -e/-d \"sentence to encrypt/decrypt\" -o offset_number" +
-                    "\n-e - encrypt\n-d - decrypt\n-o - offset");
-        }
-    }*/
-
-    public static String Encrypt(String str, int offset){
+    public static String encrypt(String str, int offset) {
         String newStr = "";
         int n = str.length();
-        for (int i = 0; i < n; i++){
+        for (int i = 0; i < n; i++) {
             char character = str.charAt(i);
-            if (character >= 'A' && character <='Z') {
+            if (character >= 'A' && character <= 'Z') {
                 character += offset;
-                if (character > 'Z'){
+                if (character > 'Z') {
                     character -= 26;
                 }
-            }
-            else if (character >= 'a' && character <='z') {
+            } else if (character >= 'a' && character <= 'z') {
                 character += offset;
-                if (character > 'z'){
+                if (character > 'z') {
                     character -= 26;
                 }
             }
@@ -86,24 +96,23 @@ public class Caesar {
         return newStr;
     }
 
-    public static String Encrypt(int offset, String str){
-        return Encrypt(str, offset);
+    public static String encrypt(int offset, String str) {
+        return encrypt(str, offset);
     }
 
-    public static String Decrypt(String str, int offset){
+    public static String decrypt(String str, int offset) {
         String newStr = "";
         int n = str.length();
-        for (int i = 0; i < n; i++){
+        for (int i = 0; i < n; i++) {
             char character = str.charAt(i);
-            if (character >= 'A' && character <='Z') {
+            if (character >= 'A' && character <= 'Z') {
                 character -= offset;
-                if (character < 'A'){
+                if (character < 'A') {
                     character += 26;
                 }
-            }
-            else if (character >= 'a' && character <='z') {
+            } else if (character >= 'a' && character <= 'z') {
                 character -= offset;
-                if (character < 'a'){
+                if (character < 'a') {
                     character += 26;
                 }
             }
@@ -111,7 +120,8 @@ public class Caesar {
         }
         return newStr;
     }
-    public static String Decrypt(int offset, String str){
-        return Decrypt(str, offset);
+
+    public static String decrypt(int offset, String str) {
+        return decrypt(str, offset);
     }
 }
