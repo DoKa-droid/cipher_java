@@ -6,11 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="caesar" />
+        <module name="cipher_java" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="caesar" target="17" />
+      <module name="cipher_java" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>
